@@ -1,0 +1,92 @@
+PREWORK: Make a new Console application. Replace the contents of Program.cs with the following code. Take some time to try to work out what each part of this code does.
+
+----------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        #region StaticFields
+        private static List<int> _integers = new List<int> { 3, 1, 4, 1, 5, 9, 2, 6, 5, 9 };
+
+        private static List<string> _strings = new List<string> {
+            "Hello",
+            "World!",
+            "I",
+            "am",
+            "a",
+            "list",
+            "of",
+            "strings",
+        };
+
+        #endregion
+
+        #region StaticMethods
+        static int Aggregate(Func<int, int, int> f, List<int> list)
+        {
+            int result = list[0];
+            for (int i = 1; i < list.Count; ++i)
+            {
+                result = f(result, list[i]);
+            }
+
+            return result;
+        }
+
+        static IEnumerable<int> Select(Func<int, int> f, IEnumerable<int> list)
+        {
+            List<int> result = new List<int>();
+            foreach (int val in list)
+            {
+                result.Add(f(val));
+            }
+            return result;
+        }
+
+        static void ForEach<T>(Action<T> f, IEnumerable<T> list)
+        {
+            foreach (T val in list)
+            {
+                f(val);
+            }
+        }
+
+        #endregion
+
+        static void Main(string[] args)
+        {
+        }
+    }
+}
+------------------------------
+
+1A. Write a method called Sum that takes two int parameters, and returns the sum of the parameters. For example, Sum(5, 7) should return 12. 
+	Inside the Main method, call Aggregate, passing in the Sum method and the _integers field. 
+	Print the result that Aggregate returns.
+1B. Create another method called Multiply, which also takes two ints and returns an int, but multiplies its parameters instead of adding them. For example, Multiply(5, 7) should return 35.
+	Inside the Main method, call Aggregate, passing in the Multiply method and the _integers field.
+	Print the result that Aggregate returns.
+1C. Call Aggregate again, but this time do NOT pass in a named method (Sum or Multiply). Instead, use a lambda expression that does the same thing that Sum did. 
+	Print the result that Aggregate returns.
+1D. Call Aggregate one more time, with a different lambda expression that does the same thing that Multiply did.
+	Print the result that Aggregate returns.
+
+2A. Create a method called MakeDouble that takes a single int parameter, and returns the parameter multiplied by 2. For example, MakeDouble(5) should return 10. 
+	Inside Main, call Selectpassing in the MakeDouble method and the _integers field.
+	Print the result that Map returns.
+2B. Create a method called Square that takes a single int parameter, and returns the parameter multiplied by itself. For example, Square(5) should return 25. 
+	Inside Main, call Map, passing in the Square method and the _integers field.
+	Print the result that Map returns.
+2C. Call Map again, but this time do NOT pass in a named method (MakeDouble or Square). Instead, use a lambda expression that does the same thing that MakeDouble did.
+	Print the result that Map returns.
+2D. Call Map one more time, this time with a lambda expression that does the same thing that Square did.
+	Print the result that Map returns.
+
+3A. Inside of Main, call ForEach, using a lambda expression and the _integers field. The lambda expression should take one parameter and print it to the console.
+3B. Inside of Main, call ForEach, using the same lambda expression but passing in the _strings field.
